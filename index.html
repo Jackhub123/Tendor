@@ -6,143 +6,110 @@
   <title>Tendor — Find Local Help Fast</title>
   <meta name="description" content="Tendor matches neighbors with local freelancers (students & community pros) for quick gigs — lawn care, tutoring, moving help, pet sitting and more." />
   <meta name="theme-color" content="#ff6b6b" />
-  <!-- PWA -->
+  <!-- PWA hooks (optional files: manifest.webmanifest, sw.js) -->
   <link rel="manifest" href="/manifest.webmanifest" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="apple-touch-icon" href="/icons/icon-192.png" />
   <style>
-    /* --- Reset / base --- */
     *,*::before,*::after{box-sizing:border-box}
     html,body{margin:0;height:100%}
     body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.5;color:#0b1220;background:var(--bg)}
     img{max-width:100%;display:block}
     a{text-decoration:none;color:inherit}
-    button{font:inherit}
+    button{font:inherit;cursor:pointer}
 
-    /* --- Bright Theme --- */
     :root{
-      --bg:#fff7ed; --panel:#ffffff; --panel-2:#fff0dc;
-      --text:#0b1220; --muted:#475569;
+      --bg:#fff7ed; --panel:#fff; --text:#0b1220; --muted:#475569;
       --brand:#ff4d6d; --brand-2:#ffb703; --accent:#06d6a0;
-      --ok:#22c55e; --danger:#ef4444;
-      --ring:rgba(255,109,109,.35); --shadow:0 12px 32px rgba(2,6,23,.15); --radius:16px;
+      --ok:#22c55e; --danger:#ef4444; --ring:rgba(255,109,109,.35);
+      --shadow:0 12px 32px rgba(2,6,23,.15); --radius:16px;
     }
-    .gradient-bg{background:
-      radial-gradient(1000px 500px at 70% -10%, rgba(255,109,109,.18), transparent 60%),
-      radial-gradient(800px 400px at 0% 0%, rgba(255,183,3,.18), transparent 60%),
-      linear-gradient(180deg,#fff7ed 0%, #fff7ed 100%)}
 
-    /* --- Layout --- */
-    .container{width:min(1100px,92vw);margin-inline:auto}
-    header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(2,6,23,.06)}
+    header{position:sticky;top:0;background:#fff7ed;border-bottom:1px solid rgba(2,6,23,.06);z-index:30}
     .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 10px}
-    .logo{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.2px}
+    .logo{display:flex;align-items:center;gap:10px;font-weight:900}
     .logo-mark{width:34px;height:34px;border-radius:9px;background:conic-gradient(from 210deg,var(--brand),var(--brand-2),var(--accent));box-shadow:0 6px 18px rgba(255,77,109,.35)}
-    .logo span{font-size:18px}
-    .nav-actions{display:flex;gap:10px;align-items:center}
-    .btn{padding:10px 14px;border-radius:12px;border:1px solid rgba(2,6,23,.08);color:#0b1220;background:linear-gradient(180deg,#fff,#fff);cursor:pointer;transition:.2s box-shadow,.2s transform}
-    .btn:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
+    .btn{padding:10px 14px;border-radius:12px;border:1px solid rgba(2,6,23,.08);background:#fff}
     .btn.primary{background:linear-gradient(180deg,var(--brand),var(--brand-2));color:#081018;font-weight:800;border:none}
-    .btn.ghost{background:transparent}
-    .role-badge{padding:6px 10px;border-radius:999px;background:rgba(6,214,160,.16);border:1px solid rgba(6,214,160,.35);font-weight:700;}
+    .btn:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
+    .role-badge{padding:6px 10px;border-radius:999px;background:rgba(6,214,160,.16);border:1px solid rgba(6,214,160,.35);font-weight:700}
 
-    /* --- Screens --- */
     .screen{display:none}
     .screen.active{display:block}
 
-    /* --- Landing --- */
-    .landing .hero{position:relative;overflow:hidden}
     .hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:center;padding:40px 10px 26px}
     @media (max-width: 900px){.hero-inner{grid-template-columns:1fr;padding:28px 10px}}
     .eyebrow{display:inline-block;margin-bottom:8px;padding:6px 10px;border-radius:999px;background:rgba(255,77,109,.12);border:1px solid rgba(255,77,109,.35);font-weight:800;color:#a4161a}
     .headline{font-size:clamp(28px,5.2vw,56px);line-height:1.05;margin:0;background:linear-gradient(180deg,#111827,#334155);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900}
     .subhead{color:#334155;font-size:clamp(15px,2.2vw,18px);margin:14px 0 22px;max-width:700px}
-    .hero-card{background:var(--panel);border:1px solid rgba(2,6,23,.08);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
-    .hero-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    @media (max-width: 520px){.hero-grid{grid-template-columns:1fr}}
+
     .section{padding:28px 10px}
-    .section h2{margin:0 0 6px;font-size:clamp(22px,3.6vw,32px);}
-    .section p.lead{margin:0 0 18px;color:#334155}
     .panel{background:var(--panel);border:1px solid rgba(2,6,23,.08);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
     .features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
     @media (max-width: 900px){.features{grid-template-columns:1fr}}
     .feature{border-radius:16px;background:var(--panel);border:1px solid rgba(2,6,23,.08);padding:16px}
-    .feature h4{margin:0 0 6px}
-    .feature p{margin:0;color:#334155}
-    .logos{display:flex;gap:18px;flex-wrap:wrap;align-items:center; opacity:.85}
-    .logos .pill{padding:10px 14px;border:1px dashed rgba(2,6,23,.12);border-radius:12px;background:#fff;color:#334155}
+    .feature h4{margin:0 0 6px}.feature p{margin:0;color:#334155}
 
-    /* --- Auth & App --- */
+    /* Auth */
     .auth{min-height:calc(100dvh - 64px);display:grid;place-items:center;padding:20px}
     .card{background:var(--panel);border:1px solid rgba(2,6,23,.06);border-radius:20px;box-shadow:var(--shadow)}
-    .auth .card{width:min(520px,95vw);padding:18px}
-    .label{display:block;color:#0b1220;margin:8px 0 4px;font-weight:600}
-    .field{width:100%;padding:12px;border-radius:12px;border:1px solid rgba(2,6,23,.12);background:#fff;color:#0b1220}
-    .tabs{display:flex;gap:8px;margin-bottom:10px}
-    .tab{flex:1;text-align:center;padding:10px;border-radius:12px;border:1px solid rgba(2,6,23,.12);cursor:pointer;background:#fff;font-weight:700}
-    .tab.active{border-color:rgba(255,77,109,.6);box-shadow:0 0 0 4px var(--ring)}
+    .auth .card{width:min(720px,95vw);padding:18px}
+    .label{display:block;margin:8px 0 4px;font-weight:600}
+    .field{width:100%;padding:12px;border-radius:12px;border:1px solid rgba(2,6,23,.12)}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media (max-width:700px){.grid-2{grid-template-columns:1fr}}
+    .help{color:#64748b;font-size:14px}
 
+    /* Deck */
     .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:14px}
     .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{padding:6px 10px;border:1px solid rgba(2,6,23,.12);border-radius:999px;background:#fff;cursor:pointer}
+    .chip.active{border-color:rgba(255,77,109,.6);box-shadow:0 0 0 4px var(--ring)}
     .search{flex:1;min-width:220px}
-    .input{width:100%;padding:10px 12px;border-radius:12px;border:1px solid rgba(2,6,23,.12);background:#fff;color:#0b1220}
-    .deck-wrap{display:grid;grid-template-columns:1fr;gap:12px;align-items:center}
-    .deck{position:relative;height:480px;border-radius:20px;overflow:visible}
+    .input{width:100%;padding:10px 12px;border-radius:12px;border:1px solid rgba(2,6,23,.12)}
+    .deck-wrap{display:grid;grid-template-columns:1fr;gap:12px}
+    .deck{position:relative;height:480px;border-radius:20px}
     @media (max-width: 520px){.deck{height:420px}}
-    .tcard{position:absolute;inset:0;margin:auto;width:min(520px,100%);height:100%;border-radius:20px;background:#fff;border:1px solid rgba(2,6,23,.12);box-shadow:0 20px 50px rgba(2,6,23,.15);padding:0;touch-action:none;user-select:none}
+    .tcard{position:absolute;inset:0;margin:auto;width:min(520px,100%);height:100%;border-radius:20px;background:#fff;border:1px solid rgba(2,6,23,.12);box-shadow:0 20px 50px rgba(2,6,23,.15);touch-action:none;user-select:none}
     .tcard.hidden{display:none}
     .card-header{position:relative;height:56%;border-bottom:1px solid rgba(2,6,23,.08);display:flex;align-items:center;justify-content:center;overflow:hidden;border-top-left-radius:20px;border-top-right-radius:20px}
     .avatar{width:100%;height:100%;background:conic-gradient(from 180deg at 50% 50%,#ffe08a,#ff4d6d,#06d6a0,#ffd166);opacity:.9}
-    .photo{width:100%;height:100%;object-fit:cover;display:block} /* for real images */
-    .badge{position:absolute;top:12px;left:12px;padding:6px 10px;border-radius:999px;font-weight:700;color:#081018;letter-spacing:.2px;box-shadow:0 8px 18px rgba(0,0,0,.08)}
-    .badge.ok{background:#bbf7d0}
-    .badge.new{background:#fde68a}
-    .price{position:absolute;bottom:12px;right:12px;background:#fff;border:1px solid rgba(2,6,23,.12);color:#0b1220;border-radius:12px;padding:6px 10px}
-    .card-body{padding:14px 14px 16px}
+    .photo{width:100%;height:100%;object-fit:cover;display:block}
+    .badge{position:absolute;top:12px;left:12px;padding:6px 10px;border-radius:999px;font-weight:700;box-shadow:0 8px 18px rgba(0,0,0,.08)}
+    .badge.ok{background:#bbf7d0}.badge.new{background:#fde68a}
+    .price{position:absolute;bottom:12px;right:12px;background:#fff;border:1px solid rgba(2,6,23,.12);border-radius:12px;padding:6px 10px}
+    .card-body{padding:14px}
     .title{display:flex;align-items:center;gap:10px}
-    .title h3{margin:0;font-size:22px}
-    .rating{color:#efb01b;font-weight:800}
+    .title h3{margin:0;font-size:22px}.rating{color:#efb01b;font-weight:800}
     .meta{display:flex;gap:10px;color:#0ea5e9;flex-wrap:wrap}
-    .meta .dot{width:4px;height:4px;border-radius:50%;background:#94a3b8;display:inline-block}
     .skills{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
     .skills .pill{padding:6px 10px;border-radius:999px;background:#fff7ed;border:1px solid rgba(2,6,23,.12)}
     .bio{color:#0b1220}
     .card-actions{display:flex;gap:14px;justify-content:center;margin-top:14px}
-    .circle-btn{width:60px;height:60px;border-radius:50%;border:none;cursor:pointer;display:grid;place-items:center;font-size:22px;font-weight:900;color:#081018}
-    .circle-btn.no{background:var(--danger)}
-    .circle-btn.yes{background:var(--ok)}
+    .circle-btn{width:60px;height:60px;border-radius:50%;border:none;font-size:22px;font-weight:900;color:#081018}
+    .circle-btn.no{background:var(--danger)} .circle-btn.yes{background:var(--ok)}
     .hint{color:#334155;text-align:center;margin-top:8px}
     .matches{margin-top:14px}
     .match-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;border-radius:12px;border:1px solid rgba(2,6,23,.12);background:#fff}
     .mini{width:36px;height:36px;border-radius:10px;background:linear-gradient(180deg,var(--brand),var(--brand-2))}
     .board{display:grid;grid-template-columns:1fr;gap:10px}
     .job{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px;border-radius:14px;border:1px solid rgba(2,6,23,.12);background:#fff}
-    .job h4{margin:0}
-    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,.25);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
-    .modal{width:min(720px,96vw);background:var(--panel);border:1px solid rgba(2,6,23,.12);border-radius:18px;box-shadow:var(--shadow);padding:16px}
-    .modal h3{margin-top:0}
-    .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    @media (max-width: 720px){.modal-grid{grid-template-columns:1fr}}
-    .toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#111827;color:white;padding:12px 16px;border-radius:12px;display:none;z-index:60}
-    footer{margin-top:28px;border-top:1px solid rgba(2,6,23,.06)}
-    .foot{padding:18px 10px;color:#334155;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-    .hidden{display:none!important}
 
-    /* --- Landing demo card over the lawn image --- */
-    .demo-wrap{position:relative;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(2,6,23,.08)}
-    .demo-wrap img{width:100%;height:360px;object-fit:cover;display:block}
+    /* Landing demo */
+    .demo-wrap{position:relative;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(2,6,23,.08);margin:18px 0}
+    .demo-wrap img{width:100%;height:360px;object-fit:cover}
     .demo-badge{position:absolute;top:12px;left:12px;background:#bbf7d0;border-radius:999px;padding:6px 10px;font-weight:700}
     .demo-card{position:absolute;left:12px;right:12px;bottom:62px;background:#fff;border:1px solid rgba(2,6,23,.1);border-radius:14px;padding:12px;box-shadow:0 10px 24px rgba(2,6,23,.18)}
     .demo-title{display:flex;justify-content:space-between;align-items:center}
     .demo-actions{position:absolute;left:0;right:0;bottom:10px;display:flex;gap:14px;justify-content:center}
-    .demo-btn{width:60px;height:60px;border-radius:50%;border:none;cursor:pointer;font-size:22px;font-weight:900;color:#081018}
+    .demo-btn{width:60px;height:60px;border-radius:50%;border:none;font-size:22px;font-weight:900;color:#081018}
     .demo-btn.no{background:var(--danger)}
     .demo-btn.yes{background:var(--ok)}
     .demo-toast{position:absolute;top:12px;right:12px;background:#111827;color:#fff;padding:8px 10px;border-radius:10px;display:none}
   </style>
 </head>
-<body class="gradient-bg">
+<body>
   <header>
     <div class="container nav">
       <a class="logo" href="#home" aria-label="Tendor home">
@@ -152,7 +119,7 @@
       <nav class="nav-actions">
         <span id="roleBadge" class="role-badge hidden"></span>
         <button class="btn" id="launch-app">Open App</button>
-        <a class="btn ghost" href="#how">How it works</a>
+        <a class="btn" href="#how">How it works</a>
         <button class="btn" id="open-post">Post a Job</button>
         <button class="btn primary" id="open-join">Become a Freelancer</button>
       </nav>
@@ -160,37 +127,18 @@
   </header>
 
   <!-- LANDING -->
-  <main id="screen-landing" class="screen landing active">
+  <main id="screen-landing" class="screen active">
     <section class="hero" id="home">
       <div class="container hero-inner">
         <div>
           <span class="eyebrow">BRIGHT • FAST • LOCAL</span>
           <h1 class="headline">Find local help in seconds — swipe, match, done.</h1>
-          <p class="subhead">Tendor is a community marketplace that feels like Tinder, built for real-world jobs: lawn care, dog walking, tutoring, moving help, snow shoveling and more.</p>
-          <div class="hero-grid" style="margin-top:18px">
-            <div class="hero-card">
-              <h4>Why Tendor?</h4>
-              <div class="logos">
-                <span class="pill">⚡ Instant matching</span><span class="pill">📍 Local first</span>
-                <span class="pill">🛡️ Verified</span><span class="pill">💬 In-app chat</span>
-              </div>
-              <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
-                <button class="btn primary" id="cta-open-app">Get the App</button>
-                <button class="btn" id="cta-browse">Browse freelancers</button>
-              </div>
-            </div>
-            <div class="hero-card">
-              <h4>What you can hire today</h4>
-              <div class="logos">
-                <span class="pill">🌿 Lawn mowing</span><span class="pill">🐶 Dog walking</span>
-                <span class="pill">📚 Tutoring</span><span class="pill">📦 Moving help</span>
-                <span class="pill">🧰 Handyman</span>
-              </div>
-            </div>
+          <p class="subhead">Tendor is a community marketplace that feels like Tinder, built for real-world jobs: lawn care, dog walking, tutoring, moving help, and more.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+            <button class="btn primary" id="cta-open-app">Get the App</button>
+            <button class="btn" id="cta-join">Become a Freelancer</button>
           </div>
         </div>
-
-        <!-- App preview panel (kept simple) -->
         <div class="panel" aria-label="App preview" style="border-radius:20px;position:relative;overflow:hidden">
           <img alt="Preview" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='900' height='700'><defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='%23ff4d6d'/><stop offset='1' stop-color='%23ffb703'/></linearGradient></defs><rect width='100%' height='100%' fill='%23fff7ed'/><g opacity='0.25'><circle cx='250' cy='120' r='160' fill='url(%23g)'/><circle cx='650' cy='200' r='200' fill='url(%23g)'/></g><g fill='%23111827' font-family='Arial' font-size='32' font-weight='700'><text x='60' y='90'>Swipe ▶ Match ▶ Hire</text></g><g fill='%23334155' font-family='Arial' font-size='20'><text x='60' y='140'>Below is how the app feels.</text></g></svg>"/>
         </div>
@@ -200,68 +148,87 @@
     <section class="section" id="how">
       <div class="container">
         <h2>How it works</h2>
-        <p class="lead">Three steps to finished.</p>
         <div class="features">
-          <div class="feature"><h4>1) Post or browse</h4><p>List your job with a budget, or browse nearby freelancers.</p></div>
-          <div class="feature"><h4>2) Swipe to shortlist</h4><p>Swipe right to match, left to pass. Chat once matched.</p></div>
+          <div class="feature"><h4>1) Post or browse</h4><p>List your job or browse nearby freelancers.</p></div>
+          <div class="feature"><h4>2) Swipe to shortlist</h4><p>Swipe right to match, left to pass.</p></div>
           <div class="feature"><h4>3) Book & review</h4><p>Clear rates, secure pay, and reviews to keep quality high.</p></div>
         </div>
 
         <!-- Interactive accept/decline demo using lawn.jpg -->
-        <div id="demo-lawn" class="demo-wrap" aria-label="Interactive example" style="margin:18px 0 8px">
-          <img src="/images/lawn.jpg" alt="Freshly cut lawn with a local worker in the background">
-          <span class="demo-badge">Lawn Care</span>
+        <div id="demo-lawn" class="demo-wrap" aria-label="Interactive example">
+          <img id="demo-img" src="/images/lawn.jpg" alt="Freshly cut lawn with a local worker in the background">
+          <span class="demo-badge" id="demo-badge">Lawn Care</span>
           <div class="demo-card">
             <div class="demo-title">
-              <strong>Ava R.</strong>
-              <span style="color:#334155">$28/hr • 2 mi</span>
+              <strong id="demo-name">Ava R.</strong>
+              <span id="demo-price" style="color:#334155">$28/hr • 2 mi</span>
             </div>
-            <div style="color:#64748b;font-size:14px">Mowing • edging • cleanup</div>
+            <div id="demo-skills" style="color:#64748b;font-size:14px">Mowing • edging • cleanup</div>
           </div>
           <div class="demo-actions">
-            <button class="demo-btn no" type="button" title="Pass">✖</button>
-            <button class="demo-btn yes" type="button" title="Match">✔</button>
+            <button class="demo-btn no" id="demo-no" type="button" title="Pass">✖</button>
+            <button class="demo-btn yes" id="demo-yes" type="button" title="Match">✔</button>
           </div>
-          <div class="demo-toast"></div>
+          <div class="demo-toast" id="demo-toast"></div>
         </div>
 
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <button class="btn primary" id="open-app-2">Open the App</button>
-          <button class="btn" id="open-join-2">Join as Freelancer</button>
+          <button class="btn" id="open-join-2">Become a Freelancer</button>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- AUTH -->
+  <!-- AUTH (minimal) -->
   <main id="screen-auth" class="screen auth">
     <div class="card">
-      <div class="tabs">
-        <div class="tab active" data-tab="create">Create Account</div>
-        <div class="tab" data-tab="signin">Sign In</div>
+      <h3 style="margin:6px 0 10px">Create account or sign in</h3>
+      <div class="grid-2">
+        <div>
+          <label class="label" for="cEmail">Email</label>
+          <input class="field" id="cEmail" type="email" placeholder="you@example.com" required />
+        </div>
+        <div>
+          <label class="label" for="cPass">Password</label>
+          <input class="field" id="cPass" type="password" placeholder="••••••••" required />
+        </div>
       </div>
-      <form id="createForm">
-        <label class="label" for="cEmail">Email</label>
-        <input class="field" id="cEmail" type="email" placeholder="you@example.com" required />
-        <label class="label" for="cPass">Password</label>
-        <input class="field" id="cPass" type="password" placeholder="••••••••" required />
-        <button class="btn primary" type="submit" style="margin-top:12px">Create account</button>
-      </form>
-      <form id="signForm" class="hidden">
-        <label class="label" for="sEmail">Email</label>
-        <input class="field" id="sEmail" type="email" placeholder="you@example.com" required />
-        <label class="label" for="sPass">Password</label>
-        <input class="field" id="sPass" type="password" placeholder="••••••••" required />
-        <button class="btn primary" type="submit" style="margin-top:12px">Sign in</button>
-      </form>
+      <div style="display:flex;gap:10px;margin-top:10px">
+        <button class="btn primary" id="btnCreate">Create account</button>
+        <button class="btn" id="btnSign">Sign in</button>
+      </div>
+      <p class="help">No extra info yet — you'll pick your experience next.</p>
     </div>
   </main>
 
-  <!-- ROLE SELECT -->
+  <!-- NEW: WORKER SIGN-UP -->
+  <main id="screen-worker-signup" class="screen auth">
+    <div class="card">
+      <h3 style="margin:6px 0 10px">Create your worker account</h3>
+      <p class="help">This helps customers understand your services. You can edit later.</p>
+      <div class="grid-2">
+        <div><label class="label" for="wName">Full name</label><input class="field" id="wName" placeholder="e.g., Ava R."/></div>
+        <div><label class="label" for="wEmail">Email</label><input class="field" id="wEmail" placeholder="you@example.com"/></div>
+        <div><label class="label" for="wPhone">Phone</label><input class="field" id="wPhone" placeholder="(555) 555‑5555"/></div>
+        <div><label class="label" for="wRate">Hourly rate ($)</label><input class="field" id="wRate" type="number" min="1" step="1" placeholder="28"/></div>
+        <div><label class="label" for="wSkills">Skills (comma‑separated)</label><input class="field" id="wSkills" placeholder="mowing, edging, cleanup"/></div>
+        <div><label class="label" for="wPhoto">Photo URL (optional)</label><input class="field" id="wPhoto" placeholder="/images/lawn.jpg"/></div>
+      </div>
+      <label class="label" for="wBio">Short bio</label>
+      <textarea class="field" id="wBio" rows="4" placeholder="Tell customers what you do best." style="resize:vertical"></textarea>
+      <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+        <button class="btn primary" id="wSubmit">Create worker account</button>
+        <button class="btn" id="wBack">Back</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ROLE SELECT (fallback if user comes from generic auth) -->
   <main id="screen-role" class="screen auth">
     <div class="card" style="text-align:center">
       <h3 style="margin:8px 0 6px">What do you want to do?</h3>
-      <p style="color:#334155;margin-top:0">Choose your experience.</p>
+      <p class="help">Choose your experience.</p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
         <button class="btn" id="chooseCustomer">I want to hire</button>
         <button class="btn primary" id="chooseWorker">I want to earn</button>
@@ -270,11 +237,11 @@
   </main>
 
   <!-- CUSTOMER -->
-  <main id="screen-customer" class="screen hidden">
-    <section class="section" id="demo">
+  <main id="screen-customer" class="screen">
+    <section class="section">
       <div class="container">
         <h2>Browse freelancers</h2>
-        <p class="lead">Filter by category, search skills, then swipe left (✖) to pass or right (✔) to match. Your matches are saved below.</p>
+        <p class="help">Swipe left (✖) to pass or right (✔) to match. Your matches are saved below.</p>
         <div class="panel">
           <div class="toolbar">
             <div class="chips" id="category-chips" aria-label="Categories"></div>
@@ -295,11 +262,11 @@
   </main>
 
   <!-- WORKER -->
-  <main id="screen-worker" class="screen hidden">
+  <main id="screen-worker" class="screen">
     <section class="section">
       <div class="container">
         <h2>Nearby jobs</h2>
-        <p class="lead">Accept jobs you want. Customers will be notified instantly.</p>
+        <p class="help">Accept jobs you want. Customers will be notified instantly.</p>
         <div class="panel"><div id="jobBoard" class="board"></div></div>
         <div class="panel" style="margin-top:12px">
           <h3 style="margin-top:0">My accepted jobs</h3>
@@ -310,54 +277,24 @@
   </main>
 
   <footer>
-    <div class="container foot">
+    <div class="container" style="padding:16px 10px;border-top:1px solid rgba(2,6,23,.06);color:#334155;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
       <div>© <span id="year"></span> Tendor.</div>
-      <div><a class="link" href="#" id="privacy-link">Privacy</a> · <a class="link" href="#" id="terms-link">Terms</a></div>
+      <div><a class="btn" href="#privacy" style="padding:6px 10px">Privacy</a> <a class="btn" href="#terms" style="padding:6px 10px">Terms</a></div>
     </div>
   </footer>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="demo-toast" id="toast" style="position:fixed;bottom:16px;left:50%;transform:translateX(-50%);display:none"></div>
 
   <script>
     // ---------- DATA ----------
     const DEFAULT_CATEGORIES = ['Lawn Care','Dog Walking','Tutoring','Moving Help','Snow Removal','Handyman','Cleaning','Baby Sitting','Tech Help','Photography'];
     const DEFAULT_PROFILES = [
-      const DEFAULT_PROFILES = [
-  { id:'p1', name:'Ava R.', category:'Lawn Care', rate:28, rating:4.9, distance:2,
-    skills:['mowing','edging','leaf cleanup'],
-    bio:'Fast, reliable lawn care. Bring my own equipment.',
-    photo:'/images/lawn.jpg', new:true },  // Ava
-
-  { id:'p10', name:'Jake C.', category:'Lawn Care', rate:26, rating:4.7, distance:3,
-    skills:['mowing','edging','cleanup'],
-    bio:'Affordable lawn care, quick and reliable.',
-    photo:'/images/lawn.jpg', verified:true },   // Jake
-
-  { id:'p11', name:'Miguel A.', category:'Lawn Care', rate:30, rating:4.9, distance:2,
-    skills:['mowing','hedges','trimming'],
-    bio:'Experienced with big yards and detailed edging.',
-    photo:'/images/lawn.jpg', new:true },        // Miguel A.
-
-  { id:'p2', name:'Miguel S.', category:'Moving Help', rate:30, rating:4.8, distance:4,
-    skills:['lifting','packing','truck'],
-    bio:'Two-person team available evenings & weekends.',
-    photo:'', verified:true },
-
-  // …rest of your profiles…
-];
-
-      { id:'p1', name:'Ava R.', category:'Lawn Care', rate:28, rating:4.9, distance:2,
-        skills:['mowing','edging','leaf cleanup'],
-        bio:'Fast, reliable lawn care. Bring my own equipment.',
-        photo:'/images/lawn.jpg', new:true }, // ← uses real photo
+      { id:'p1', name:'Ava R.', category:'Lawn Care', rate:28, rating:4.9, distance:2, skills:['mowing','edging','leaf cleanup'], bio:'Fast, reliable lawn care. Bring my own equipment.', photo:'/images/lawn.jpg', new:true },
+      { id:'p10', name:'Jake C.', category:'Lawn Care', rate:26, rating:4.7, distance:3, skills:['mowing','edging','cleanup'], bio:'Affordable lawn care, quick and reliable.', photo:'/images/lawn.jpg', verified:true },
+      { id:'p11', name:'Miguel A.', category:'Lawn Care', rate:30, rating:4.9, distance:2, skills:['mowing','hedges','trimming'], bio:'Experienced with big yards and detailed edging.', photo:'/images/lawn.jpg', new:true },
       { id:'p2', name:'Miguel S.', category:'Moving Help', rate:30, rating:4.8, distance:4, skills:['lifting','packing','truck'], bio:'Two-person team available evenings & weekends.', photo:'', verified:true },
       { id:'p3', name:'Kayla T.', category:'Tutoring', rate:35, rating:5.0, distance:1, skills:['algebra','calculus','SAT'], bio:'MSU math major — patient & results-driven.', photo:'', verified:true },
-      { id:'p4', name:'Jamal B.', category:'Dog Walking', rate:22, rating:4.7, distance:3, skills:['walks','potty breaks','overnights'], bio:'Big-dog friendly. Flexible mornings.', photo:'', new:true },
-      { id:'p5', name:'Priya N.', category:'Tech Help', rate:25, rating:4.9, distance:2, skills:['wifi','printer','phone setup'], bio:'I fix confusing tech in plain English.', photo:'', verified:true },
-      { id:'p6', name:'Noah K.', category:'Snow Removal', rate:35, rating:4.8, distance:5, skills:['shoveling','salting','driveways'], bio:'On-call during storms. Text me early!', photo:'', verified:true },
-      { id:'p7', name:'Lena G.', category:'Cleaning', rate:32, rating:4.9, distance:2, skills:['deep clean','kitchens','bathrooms'], bio:'Sparkling clean, supplies included.', photo:'', verified:true },
-      { id:'p8', name:'Drew P.', category:'Handyman', rate:45, rating:4.8, distance:8, skills:['mounting','furniture','repairs'], bio:'Small jobs done right the first time.', photo:'', verified:true },
-      { id:'p9', name:'Sara W.', category:'Photography', rate:60, rating:4.9, distance:6, skills:['portraits','events','editing'], bio:'Clean, modern style. Quick turnaround.', photo:'', new:true },
+      { id:'p4', name:'Jamal B.', category:'Dog Walking', rate:22, rating:4.7, distance:3, skills:['walks','potty breaks','overnights'], bio:'Big-dog friendly. Flexible mornings.', photo:'', new:true }
     ];
 
     const store = { get(k,f){ try{return JSON.parse(localStorage.getItem(k)) ?? f }catch{ return f } }, set(k,v){ localStorage.setItem(k, JSON.stringify(v)) } }
@@ -376,49 +313,60 @@
     const toast = (m)=>{ const t=$('#toast'); t.textContent=m; t.style.display='block'; clearTimeout(toast._id); toast._id=setTimeout(()=>t.style.display='none',2100) }
 
     // ---------- ROUTING ----------
-    const Screens = { landing: $('#screen-landing'), auth: $('#screen-auth'), role: $('#screen-role'), customer: $('#screen-customer'), worker: $('#screen-worker') }
+    const Screens = { landing: $('#screen-landing'), auth: $('#screen-auth'), role: $('#screen-role'), customer: $('#screen-customer'), worker: $('#screen-worker'), workerSignup: $('#screen-worker-signup') }
     function getUser(){ return store.get('tendor_user', null) }
     function setUser(u){ store.set('tendor_user', u); updateRoleUI?.(); route() }
-    function route(){
-      const u = getUser()
-      Object.values(Screens).forEach(s=> s.classList.add('hidden'))
-      if(!u){ Screens.landing.classList.remove('hidden'); Screens.landing.classList.add('active'); return }
-      $('#roleBadge').textContent = u.role ? (u.role==='worker' ? 'Worker' : 'Customer') : '—'
-      $('#roleBadge').classList.remove('hidden')
-      if(!u.role){ Screens.role.classList.remove('hidden'); return }
-      if(u.role==='worker'){ Screens.worker.classList.remove('hidden') } else { Screens.customer.classList.remove('hidden') }
-    }
+    function show(name){ Object.values(Screens).forEach(s=> s.classList.remove('active')); Screens[name]?.classList.add('active') }
+    function route(){ const u=getUser(); if(!u){ show('landing'); return } if(!u.role){ show('role'); return } show(u.role==='worker'?'worker':'customer') }
 
-    // Landing CTAs
-    document.getElementById('launch-app').addEventListener('click', ()=> showAuth())
-    document.getElementById('cta-open-app').addEventListener('click', ()=> showAuth())
-    document.getElementById('open-app-2').addEventListener('click', ()=> showAuth())
-    document.getElementById('cta-browse').addEventListener('click', ()=> { setUser({}) ; route() })
-    function showAuth(){ Object.values(Screens).forEach(s=> s.classList.add('hidden')); Screens.auth.classList.remove('hidden'); Screens.auth.classList.add('active') }
+    function updateRoleUI(){ const u=getUser(); const b=$('#roleBadge'); if(!u){ b.classList.add('hidden'); return } b.textContent = u.role ? (u.role==='worker'?'Worker':'Customer') : '—'; b.classList.remove('hidden') }
 
-    // Auth tabs
-    const tabs = document.querySelectorAll('.tab')
-    tabs.forEach(t=> t.addEventListener('click', ()=>{
-      tabs.forEach(x=> x.classList.remove('active')); t.classList.add('active')
-      const m = t.dataset.tab
-      document.getElementById('createForm').classList.toggle('hidden', m!=='create')
-      document.getElementById('signForm').classList.toggle('hidden', m!=='signin')
-    }))
+    // Header & CTA buttons
+    $('#launch-app').onclick = ()=> show('auth')
+    $('#cta-open-app').onclick = ()=> show('auth')
+    $('#open-app-2').onclick = ()=> show('auth')
 
-    // Create / Sign in
-    document.getElementById('createForm').addEventListener('submit', (e)=>{ e.preventDefault(); setUser({ email: $('#cEmail').value.trim() }) })
-    document.getElementById('signForm').addEventListener('submit', (e)=>{ e.preventDefault(); const u = getUser() || {}; u.email = $('#sEmail').value.trim(); setUser(u) })
+    // Become a Freelancer buttons -> worker signup form
+    $('#open-join').onclick = ()=> show('workerSignup')
+    $('#cta-join').onclick = ()=> show('workerSignup')
+    $('#open-join-2').onclick = ()=> show('workerSignup')
+
+    // Auth actions (simple demo)
+    $('#btnCreate').onclick = ()=> { const u = { email: $('#cEmail').value.trim() }; setUser(u) }
+    $('#btnSign').onclick   = ()=> { const u = getUser()||{}; u.email = $('#cEmail').value.trim(); setUser(u) }
 
     // Role selection
-    document.getElementById('chooseCustomer').addEventListener('click', ()=>{ const u=getUser()||{}; u.role='customer'; setUser(u) })
-    document.getElementById('chooseWorker').addEventListener('click', ()=>{ const u=getUser()||{}; u.role='worker'; setUser(u) })
+    $('#chooseCustomer').onclick = ()=> { const u=getUser()||{}; u.role='customer'; setUser(u) }
+    $('#chooseWorker').onclick   = ()=> { const u=getUser()||{}; u.role='worker'; setUser(u) }
+
+    // Worker sign-up flow
+    $('#wBack').onclick = ()=> show('landing')
+    $('#wSubmit').onclick = ()=>{
+      const worker = {
+        name: $('#wName').value.trim() || 'New Worker',
+        email: $('#wEmail').value.trim(),
+        phone: $('#wPhone').value.trim(),
+        rate: parseInt($('#wRate').value,10)||25,
+        skills: $('#wSkills').value.split(',').map(s=>s.trim()).filter(Boolean),
+        bio: $('#wBio').value.trim()||'Local freelancer available.',
+        photo: $('#wPhoto').value.trim()||'/images/lawn.jpg',
+        category: 'Lawn Care'
+      }
+      // Save as user + also add to public profiles so customers can see them
+      const u = { role:'worker', email: worker.email, name: worker.name, worker }
+      setUser(u)
+      profiles.unshift({ id:'p'+Math.random().toString(36).slice(2,7), name:worker.name, category:worker.category, rate:worker.rate, rating:5.0, distance:1, skills:worker.skills, bio:worker.bio, photo:worker.photo, verified:true })
+      store.set('tendor_profiles', profiles)
+      toast('Worker account created!')
+      route()
+    }
 
     // ----- CUSTOMER: deck -----
     function renderCategoryChips(){
       const wrap = $('#category-chips'); wrap.innerHTML=''
-      const all = el('span','chip toggle active','All'); all.dataset.value='All'; wrap.append(all)
-      categories.forEach(c=>{ const chip=el('span','chip toggle',c); chip.dataset.value=c; wrap.append(chip) })
-      wrap.addEventListener('click', e=>{ const x=e.target.closest('.chip.toggle'); if(!x)return; wrap.querySelectorAll('.chip.toggle').forEach(c=>c.classList.remove('active')); x.classList.add('active'); rebuildDeck() })
+      const all = el('span','chip active','All'); all.dataset.value='All'; wrap.append(all)
+      categories.forEach(c=>{ const chip=el('span','chip',c); chip.dataset.value=c; wrap.append(chip) })
+      wrap.addEventListener('click', e=>{ const x=e.target.closest('.chip'); if(!x)return; wrap.querySelectorAll('.chip').forEach(c=>c.classList.remove('active')); x.classList.add('active'); rebuildDeck() })
     }
     let deckData=[]; let activeIndex=0; const deckEl=$('#deck')
     const pointer = e=>({ x:e.clientX ?? (e.touches?.[0]?.clientX ?? 0), y:e.clientY ?? (e.touches?.[0]?.clientY ?? 0) })
@@ -433,13 +381,13 @@
       header.append(el('div','price',`$${p.rate}/hr`));
       const body=el('div','card-body');
       const title=el('div','title'); title.append(el('h3','',p.name)); title.append(el('div','rating','★ '+p.rating.toFixed(1))); body.append(title)
-      const meta=el('div','meta'); meta.innerHTML=`<span>${p.category}</span> <span class='dot'></span> <span>${p.distance} mi</span>`; body.append(meta)
+      const meta=el('div','meta'); meta.innerHTML=`<span>${p.category}</span> · <span>${p.distance} mi</span>`; body.append(meta)
       const skills=el('div','skills'); p.skills.slice(0,5).forEach(s=> skills.append(el('span','pill',s))); body.append(skills)
       body.append(el('p','bio',p.bio));
       card.append(header,body); card.dataset.id=p.id; return card
     }
     function applyFilters(list){
-      const activeChip=document.querySelector('.chip.toggle.active'); const cat=activeChip?activeChip.dataset.value:'All'; const q=$('#search').value.trim().toLowerCase()
+      const activeChip=document.querySelector('.chip.active'); const cat=activeChip?activeChip.dataset.value:'All'; const q=$('#search').value.trim().toLowerCase()
       return list.filter(p => (cat==='All'||p.category===cat) && (q===''|| p.name.toLowerCase().includes(q)|| p.skills.some(s=>s.toLowerCase().includes(q))|| p.bio.toLowerCase().includes(q)))
     }
     function rebuildDeck(){ deckEl.innerHTML=''; deckData=applyFilters([...profiles]); activeIndex=0; if(deckData.length===0){ deckEl.append(el('div','',"<div style='padding:16px;color:#334155'>No results. Try another category or search.</div>")); return } deckData.slice(0,5).reverse().forEach(p=> deckEl.append(buildCard(p))); attachTopCard() }
@@ -451,39 +399,41 @@
     }
     function swipe(dir){ const card=deckEl.lastElementChild; if(!card)return; const id=card.dataset.id; const p=deckData.find(x=>x.id===id); card.style.transition='transform .35s ease'; const offX=dir==='right'?window.innerWidth:-window.innerWidth; card.style.transform=`translate(${offX}px, -40px) rotate(${dir==='right'?15:-15}deg)`; setTimeout(()=>{ card.remove(); activeIndex++; if(dir==='right') onMatch(p); if(activeIndex<deckData.length) attachTopCard(); else deckEl.innerHTML="<div style='padding:16px;color:#334155'>No more profiles — adjust filters to see more.</div>" },260) }
     function onMatch(p){ if(!matches.find(m=>m.id===p.id)){ matches.unshift(p); store.set('tendor_matches',matches); renderMatches(); toast(`Matched with ${p.name}!`) } }
-    function renderMatches(){ const box=$('#matches'); if(matches.length===0){ box.innerHTML=''; return } box.innerHTML='<h3 style="margin:8px 0">Your matches</h3>'; const list=el('div','', ''); matches.forEach(m=>{ const row=el('div','match-item',''); const left=el('div','info',''); left.append(el('div','mini')); const txt=el('div','',`<div style='font-weight:700'>${m.name} — ${m.category}</div><div style='color:#334155'>$${m.rate}/hr • ${m.distance} mi</div>`); left.append(txt); const actions=el('div','', ''); const emailBtn=el('a','btn','Email'); emailBtn.href=`mailto:${(m.email||'hello@tendor.app')}?subject=Tendor%20booking:%20${encodeURIComponent(m.category)}`; const removeBtn=el('button','btn ghost','Remove'); removeBtn.onclick=()=>{ matches=matches.filter(x=>x.id!==m.id); store.set('tendor_matches',matches); renderMatches() }; actions.append(emailBtn,removeBtn); row.append(left,actions); list.append(row) }); box.append(list) }
+    function renderMatches(){ const box=$('#matches'); if(matches.length===0){ box.innerHTML=''; return } box.innerHTML='<h3 style="margin:8px 0">Your matches</h3>'; const list=el('div','', ''); matches.forEach(m=>{ const row=el('div','match-item',''); const left=el('div','info',''); left.append(el('div','mini')); const txt=el('div','',`<div style='font-weight:700'>${m.name} — ${m.category}</div><div style='color:#334155'>$${m.rate}/hr • ${m.distance} mi</div>`); left.append(txt); const actions=el('div','', ''); const emailBtn=el('a','btn','Email'); emailBtn.href=`mailto:${(m.email||'hello@tendor.app')}?subject=Tendor%20booking:%20${encodeURIComponent(m.category)}`; const removeBtn=el('button','btn','Remove'); removeBtn.onclick=()=>{ matches=matches.filter(x=>x.id!==m.id); store.set('tendor_matches',matches); renderMatches() }; actions.append(emailBtn,removeBtn); row.append(left,actions); list.append(row) }); box.append(list) }
 
     // Worker board
     function renderJobBoard(){ const board=$('#jobBoard'); board.innerHTML=''; if(jobs.length===0){ board.innerHTML='<div style="color:#334155">No jobs yet. Check back later.</div>'; return } jobs.forEach(j=>{ const row=el('div','job',''); const left=el('div','',`<h4>${j.title}</h4><div style='color:#334155'>${j.category} • $${j.budget} • ${j.zip}</div><div style='color:#64748b'>${j.desc}</div>`); const actions=el('div','', ''); const accept=el('button','btn primary','Accept'); accept.onclick=()=>{ acceptJob(j) }; actions.append(accept); row.append(left,actions); board.append(row) }) }
     function renderMyJobs(){ const list=$('#myJobs'); list.innerHTML=''; if(myAccepted.length===0){ list.innerHTML='<div style="color:#334155">No accepted jobs yet.</div>'; return } myAccepted.forEach(j=>{ const row=el('div','job',''); const left=el('div','',`<h4>${j.title}</h4><div style='color:#334155'>${j.category} • $${j.budget} • ${j.zip}</div><div style='color:#64748b'>${j.desc}</div>`); const actions=el('div','', ''); const done=el('button','btn','Mark done'); done.onclick=()=>{ myAccepted=myAccepted.filter(x=>x.id!==j.id); store.set('tendor_my_jobs',myAccepted); renderMyJobs(); toast('Job marked done') }; actions.append(done); row.append(left,actions); list.append(row) }) }
     function acceptJob(j){ if(!myAccepted.find(x=>x.id===j.id)){ myAccepted.unshift(j); store.set('tendor_my_jobs',myAccepted); renderMyJobs(); toast('Job accepted!') } }
 
-    // Category selects & modals (stubs kept)
-    function fillCategorySelects(){ /* no-op placeholders in this file */ }
-    function openModal(id){ /* no-op */ }
-    function closeModal(e){ /* no-op */ }
-    function setupModals(){ /* no-op */ }
-
-    // Init
-    document.getElementById('year').textContent = new Date().getFullYear()
-    document.addEventListener('click', (e)=>{ if(e.target.id==='btn-no') swipe('left'); if(e.target.id==='btn-yes') swipe('right') })
-    document.getElementById('search')?.addEventListener('input', ()=> rebuildDeck())
-    renderCategoryChips(); rebuildDeck(); renderMatches(); renderJobBoard(); renderMyJobs(); route();
-
-    // Landing demo buttons → tiny feedback toast
-    (function(){
-      const demo = document.getElementById('demo-lawn'); if(!demo) return;
-      const toast = demo.querySelector('.demo-toast');
-      const show = (msg)=>{ toast.textContent = msg; toast.style.display='block';
-                            clearTimeout(show.t); show.t = setTimeout(()=>toast.style.display='none',1200); };
-      demo.querySelector('.demo-btn.no').onclick = ()=> show('Passed');
-      demo.querySelector('.demo-btn.yes').onclick = ()=> show('Matched!');
-    })();
-
-    // PWA
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', ()=> navigator.serviceWorker.register('/sw.js').catch(console.error))
+    // Init customer & worker views
+    function init(){
+      document.getElementById('year').textContent = new Date().getFullYear()
+      document.addEventListener('click', (e)=>{ if(e.target.id==='btn-no') swipe('left'); if(e.target.id==='btn-yes') swipe('right') })
+      $('#search')?.addEventListener('input', ()=> rebuildDeck())
+      renderCategoryChips(); rebuildDeck(); renderMatches(); renderJobBoard(); renderMyJobs(); route(); updateRoleUI()
     }
+
+    // Landing demo: cycle through three lawn-care pros on ✖/✔
+    (function(){
+      const DEMO_PROFILES = [
+        { name: "Ava R.",    rate: 28, dist: 2, skills: "Mowing • edging • cleanup", photo: "/images/lawn.jpg" },
+        { name: "Jake C.",   rate: 26, dist: 3, skills: "Mowing • edging • cleanup", photo: "/images/lawn.jpg" },
+        { name: "Miguel A.", rate: 30, dist: 2, skills: "Mowing • hedges • trimming", photo: "/images/lawn.jpg" }
+      ];
+      let di = 0; const toastBox = document.getElementById('demo-toast')
+      const render = ()=>{ const d=DEMO_PROFILES[di]; document.getElementById('demo-img').src=d.photo; document.getElementById('demo-name').textContent=d.name; document.getElementById('demo-price').textContent=`$${d.rate}/hr • ${d.dist} mi`; document.getElementById('demo-skills').textContent=d.skills }
+      const flash = (m)=>{ toastBox.textContent=m; toastBox.style.display='block'; clearTimeout(flash.t); flash.t=setTimeout(()=>toastBox.style.display='none',900) }
+      const next = ()=>{ di=(di+1)%DEMO_PROFILES.length; render() }
+      document.getElementById('demo-no').onclick = ()=>{ flash('Passed'); next() }
+      document.getElementById('demo-yes').onclick = ()=>{ flash('Matched!'); next() }
+      render()
+    })()
+
+    // PWA service worker (optional)
+    if ('serviceWorker' in navigator) { window.addEventListener('load', ()=> navigator.serviceWorker.register('/sw.js').catch(()=>{})) }
+
+    init()
   </script>
 </body>
 </html>
