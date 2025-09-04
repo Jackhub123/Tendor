@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tendor — Find Local Help Fast</title>
-  <meta name="description" content="Tendor matches neighbors with local freelancers (students & community pros) for quick gigs — lawn care, tutoring, moving help, pet sitting and more." />
+  <meta name="description" content="Tendor matches neighbors with local freelancers for quick gigs — lawn care, tutoring, moving help, pet sitting and more." />
   <meta name="theme-color" content="#ff6b6b" />
-  <!-- PWA hooks (optional files: manifest.webmanifest, sw.js) -->
+  <!-- (Optional) PWA hooks if you add these files later -->
   <link rel="manifest" href="/manifest.webmanifest" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -33,11 +33,11 @@
     .btn{padding:10px 14px;border-radius:12px;border:1px solid rgba(2,6,23,.08);background:#fff}
     .btn.primary{background:linear-gradient(180deg,var(--brand),var(--brand-2));color:#081018;font-weight:800;border:none}
     .btn:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
-    .role-badge{padding:6px 10px;border-radius:999px;background:rgba(6,214,160,.16);border:1px solid rgba(6,214,160,.35);font-weight:700}
 
     .screen{display:none}
     .screen.active{display:block}
 
+    /* HERO */
     .hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:center;padding:40px 10px 26px}
     @media (max-width: 900px){.hero-inner{grid-template-columns:1fr;padding:28px 10px}}
     .eyebrow{display:inline-block;margin-bottom:8px;padding:6px 10px;border-radius:999px;background:rgba(255,77,109,.12);border:1px solid rgba(255,77,109,.35);font-weight:800;color:#a4161a}
@@ -49,19 +49,20 @@
     .features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
     @media (max-width: 900px){.features{grid-template-columns:1fr}}
     .feature{border-radius:16px;background:var(--panel);border:1px solid rgba(2,6,23,.08);padding:16px}
-    .feature h4{margin:0 0 6px}.feature p{margin:0;color:#334155}
 
-    /* Auth */
-    .auth{min-height:calc(100dvh - 64px);display:grid;place-items:center;padding:20px}
-    .card{background:var(--panel);border:1px solid rgba(2,6,23,.06);border-radius:20px;box-shadow:var(--shadow)}
-    .auth .card{width:min(720px,95vw);padding:18px}
-    .label{display:block;margin:8px 0 4px;font-weight:600}
-    .field{width:100%;padding:12px;border-radius:12px;border:1px solid rgba(2,6,23,.12)}
-    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    @media (max-width:700px){.grid-2{grid-template-columns:1fr}}
-    .help{color:#64748b;font-size:14px}
+    /* Landing demo */
+    .demo-wrap{position:relative;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(2,6,23,.08);margin:18px 0}
+    .demo-wrap img{width:100%;height:360px;object-fit:cover}
+    .demo-badge{position:absolute;top:12px;left:12px;background:#bbf7d0;border-radius:999px;padding:6px 10px;font-weight:700}
+    .demo-card{position:absolute;left:12px;right:12px;bottom:62px;background:#fff;border:1px solid rgba(2,6,23,.1);border-radius:14px;padding:12px;box-shadow:0 10px 24px rgba(2,6,23,.18)}
+    .demo-title{display:flex;justify-content:space-between;align-items:center}
+    .demo-actions{position:absolute;left:0;right:0;bottom:10px;display:flex;gap:14px;justify-content:center}
+    .demo-btn{width:60px;height:60px;border-radius:50%;border:none;font-size:22px;font-weight:900;color:#081018}
+    .demo-btn.no{background:var(--danger)}
+    .demo-btn.yes{background:var(--ok)}
+    .demo-toast{position:absolute;top:12px;right:12px;background:#111827;color:#fff;padding:8px 10px;border-radius:10px;display:none}
 
-    /* Deck */
+    /* Customer deck */
     .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:14px}
     .chips{display:flex;gap:8px;flex-wrap:wrap}
     .chip{padding:6px 10px;border:1px solid rgba(2,6,23,.12);border-radius:999px;background:#fff;cursor:pointer}
@@ -95,18 +96,6 @@
     .mini{width:36px;height:36px;border-radius:10px;background:linear-gradient(180deg,var(--brand),var(--brand-2))}
     .board{display:grid;grid-template-columns:1fr;gap:10px}
     .job{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px;border-radius:14px;border:1px solid rgba(2,6,23,.12);background:#fff}
-
-    /* Landing demo */
-    .demo-wrap{position:relative;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(2,6,23,.08);margin:18px 0}
-    .demo-wrap img{width:100%;height:360px;object-fit:cover}
-    .demo-badge{position:absolute;top:12px;left:12px;background:#bbf7d0;border-radius:999px;padding:6px 10px;font-weight:700}
-    .demo-card{position:absolute;left:12px;right:12px;bottom:62px;background:#fff;border:1px solid rgba(2,6,23,.1);border-radius:14px;padding:12px;box-shadow:0 10px 24px rgba(2,6,23,.18)}
-    .demo-title{display:flex;justify-content:space-between;align-items:center}
-    .demo-actions{position:absolute;left:0;right:0;bottom:10px;display:flex;gap:14px;justify-content:center}
-    .demo-btn{width:60px;height:60px;border-radius:50%;border:none;font-size:22px;font-weight:900;color:#081018}
-    .demo-btn.no{background:var(--danger)}
-    .demo-btn.yes{background:var(--ok)}
-    .demo-toast{position:absolute;top:12px;right:12px;background:#111827;color:#fff;padding:8px 10px;border-radius:10px;display:none}
   </style>
 </head>
 <body>
@@ -117,7 +106,6 @@
         <span>Tendor</span>
       </a>
       <nav class="nav-actions">
-        <span id="roleBadge" class="role-badge hidden"></span>
         <button class="btn" id="launch-app">Open App</button>
         <a class="btn" href="#how">How it works</a>
         <button class="btn" id="open-post">Post a Job</button>
@@ -180,69 +168,38 @@
     </section>
   </main>
 
-  <!-- AUTH (minimal) -->
-  <main id="screen-auth" class="screen auth">
-    <div class="card">
-      <h3 style="margin:6px 0 10px">Create account or sign in</h3>
-      <div class="grid-2">
-        <div>
-          <label class="label" for="cEmail">Email</label>
-          <input class="field" id="cEmail" type="email" placeholder="you@example.com" required />
+  <!-- WORKER SIGN‑UP (single page) -->
+  <main id="screen-worker-signup" class="screen" style="display:none">
+    <section class="section">
+      <div class="container">
+        <div class="panel" style="max-width:760px;margin-inline:auto">
+          <h3 style="margin:6px 0 10px">Create your worker account</h3>
+          <p style="color:#64748b;margin-top:0">One simple form to create your account and profile.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div><label class="label" for="wName">Full name</label><input class="input" id="wName" placeholder="e.g., Ava R."/></div>
+            <div><label class="label" for="wEmail">Email (login)</label><input class="input" id="wEmail" type="email" placeholder="you@example.com"/></div>
+            <div><label class="label" for="wPass">Password</label><input class="input" id="wPass" type="password" placeholder="••••••••"/></div>
+            <div><label class="label" for="wPhone">Phone</label><input class="input" id="wPhone" placeholder="(555) 555‑5555"/></div>
+            <div><label class="label" for="wRate">Hourly rate ($)</label><input class="input" id="wRate" type="number" min="1" step="1" placeholder="28"/></div>
+            <div><label class="label" for="wSkills">Skills (comma‑separated)</label><input class="input" id="wSkills" placeholder="mowing, edging, cleanup"/></div>
+            <div style="grid-column:1/3"><label class="label" for="wPhoto">Photo URL</label><input class="input" id="wPhoto" placeholder="/images/lawn.jpg"/></div>
+            <div style="grid-column:1/3"><label class="label" for="wBio">Short bio</label><textarea class="input" id="wBio" rows="4" placeholder="Tell customers what you do best." style="resize:vertical"></textarea></div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+            <button class="btn primary" id="wSubmit">Create worker account</button>
+            <button class="btn" id="wBack">Back</button>
+          </div>
         </div>
-        <div>
-          <label class="label" for="cPass">Password</label>
-          <input class="field" id="cPass" type="password" placeholder="••••••••" required />
-        </div>
       </div>
-      <div style="display:flex;gap:10px;margin-top:10px">
-        <button class="btn primary" id="btnCreate">Create account</button>
-        <button class="btn" id="btnSign">Sign in</button>
-      </div>
-      <p class="help">No extra info yet — you'll pick your experience next.</p>
-    </div>
+    </section>
   </main>
 
-  <!-- NEW: WORKER SIGN-UP -->
-  <main id="screen-worker-signup" class="screen auth">
-    <div class="card">
-      <h3 style="margin:6px 0 10px">Create your worker account</h3>
-      <p class="help">This helps customers understand your services. You can edit later.</p>
-      <div class="grid-2">
-        <div><label class="label" for="wName">Full name</label><input class="field" id="wName" placeholder="e.g., Ava R."/></div>
-        <div><label class="label" for="wEmail">Email (login)</label><input class="field" id="wEmail" type="email" placeholder="you@example.com"/></div>
-        <div><label class="label" for="wPass">Password</label><input class="field" id="wPass" type="password" placeholder="••••••••"/></div>
-        <div><label class="label" for="wPhone">Phone</label><input class="field" id="wPhone" placeholder="(555) 555‑5555"/></div>
-        <div><label class="label" for="wRate">Hourly rate ($)</label><input class="field" id="wRate" type="number" min="1" step="1" placeholder="28"/></div>
-        <div><label class="label" for="wSkills">Skills (comma‑separated)</label><input class="field" id="wSkills" placeholder="mowing, edging, cleanup"/></div>
-        <div><label class="label" for="wPhoto">Photo URL (optional)</label><input class="field" id="wPhoto" placeholder="/images/lawn.jpg"/></div>
-      </div>
-      <label class="label" for="wBio">Short bio</label>
-      <textarea class="field" id="wBio" rows="4" placeholder="Tell customers what you do best." style="resize:vertical"></textarea>
-      <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
-        <button class="btn primary" id="wSubmit">Create worker account</button>
-        <button class="btn" id="wBack">Back</button>
-      </div>
-    </div>
-  </main>
-
-  <!-- ROLE SELECT (fallback if user comes from generic auth) -->
-  <main id="screen-role" class="screen auth">
-    <div class="card" style="text-align:center">
-      <h3 style="margin:8px 0 6px">What do you want to do?</h3>
-      <p class="help">Choose your experience.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <button class="btn" id="chooseCustomer">I want to hire</button>
-        <button class="btn primary" id="chooseWorker">I want to earn</button>
-      </div>
-    </div>
-  </main>
-
-  <!-- CUSTOMER -->
-  <main id="screen-customer" class="screen">
+  <!-- CUSTOMER APP -->
+  <main id="screen-customer" class="screen" style="display:none">
     <section class="section">
       <div class="container">
         <h2>Browse freelancers</h2>
-        <p class="help">Swipe left (✖) to pass or right (✔) to match. Your matches are saved below.</p>
+        <p style="color:#64748b">Swipe left (✖) to pass or right (✔) to match. Your matches are saved below.</p>
         <div class="panel">
           <div class="toolbar">
             <div class="chips" id="category-chips" aria-label="Categories"></div>
@@ -262,12 +219,12 @@
     </section>
   </main>
 
-  <!-- WORKER -->
-  <main id="screen-worker" class="screen">
+  <!-- WORKER DASHBOARD -->
+  <main id="screen-worker" class="screen" style="display:none">
     <section class="section">
       <div class="container">
         <h2>Nearby jobs</h2>
-        <p class="help">Accept jobs you want. Customers will be notified instantly.</p>
+        <p style="color:#64748b">Accept jobs you want. Customers will be notified instantly.</p>
         <div class="panel"><div id="jobBoard" class="board"></div></div>
         <div class="panel" style="margin-top:12px">
           <h3 style="margin-top:0">My accepted jobs</h3>
@@ -277,25 +234,18 @@
     </section>
   </main>
 
-  <footer>
-    <div class="container" style="padding:16px 10px;border-top:1px solid rgba(2,6,23,.06);color:#334155;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
-      <div>© <span id="year"></span> Tendor.</div>
-      <div><a class="btn" href="#privacy" style="padding:6px 10px">Privacy</a> <a class="btn" href="#terms" style="padding:6px 10px">Terms</a></div>
-    </div>
-  </footer>
-
   <div class="demo-toast" id="toast" style="position:fixed;bottom:16px;left:50%;transform:translateX(-50%);display:none"></div>
 
   <script>
     // ---------- DATA ----------
     const DEFAULT_CATEGORIES = ['Lawn Care','Dog Walking','Tutoring','Moving Help','Snow Removal','Handyman','Cleaning','Baby Sitting','Tech Help','Photography'];
     const DEFAULT_PROFILES = [
-      { id:'p1', name:'Ava R.', category:'Lawn Care', rate:28, rating:4.9, distance:2, skills:['mowing','edging','leaf cleanup'], bio:'Fast, reliable lawn care. Bring my own equipment.', photo:'/images/lawn.jpg', new:true },
-      { id:'p10', name:'Jake C.', category:'Lawn Care', rate:26, rating:4.7, distance:3, skills:['mowing','edging','cleanup'], bio:'Affordable lawn care, quick and reliable.', photo:'/images/lawn.jpg', verified:true },
-      { id:'p11', name:'Miguel A.', category:'Lawn Care', rate:30, rating:4.9, distance:2, skills:['mowing','hedges','trimming'], bio:'Experienced with big yards and detailed edging.', photo:'/images/lawn.jpg', new:true },
-      { id:'p2', name:'Miguel S.', category:'Moving Help', rate:30, rating:4.8, distance:4, skills:['lifting','packing','truck'], bio:'Two-person team available evenings & weekends.', photo:'', verified:true },
-      { id:'p3', name:'Kayla T.', category:'Tutoring', rate:35, rating:5.0, distance:1, skills:['algebra','calculus','SAT'], bio:'MSU math major — patient & results-driven.', photo:'', verified:true },
-      { id:'p4', name:'Jamal B.', category:'Dog Walking', rate:22, rating:4.7, distance:3, skills:['walks','potty breaks','overnights'], bio:'Big-dog friendly. Flexible mornings.', photo:'', new:true }
+      { id:'p1',  name:'Ava R.',    category:'Lawn Care',  rate:28, rating:4.9, distance:2, skills:['mowing','edging','leaf cleanup'], bio:'Fast, reliable lawn care. Bring my own equipment.', photo:'/images/lawn.jpg', new:true },
+      { id:'p10', name:'Jake C.',   category:'Lawn Care',  rate:26, rating:4.7, distance:3, skills:['mowing','edging','cleanup'],       bio:'Affordable lawn care, quick and reliable.',        photo:'/images/lawn.jpg', verified:true },
+      { id:'p11', name:'Miguel A.', category:'Lawn Care',  rate:30, rating:4.9, distance:2, skills:['mowing','hedges','trimming'],    bio:'Experienced with big yards and detailed edging.', photo:'/images/lawn.jpg', new:true },
+      { id:'p2',  name:'Kayla T.',  category:'Tutoring',   rate:35, rating:5.0, distance:1, skills:['algebra','calculus','SAT'],      bio:'MSU math major — patient & results-driven.',      photo:'' },
+      { id:'p3',  name:'Jamal B.',  category:'Dog Walking',rate:22, rating:4.7, distance:3, skills:['walks','overnights'],            bio:'Big-dog friendly. Flexible mornings.',            photo:'' },
+      { id:'p4',  name:'Lena G.',   category:'Cleaning',   rate:32, rating:4.9, distance:2, skills:['deep clean','kitchens','bathrooms'], bio:'Sparkling clean, supplies included.',           photo:'' }
     ];
 
     const store = { get(k,f){ try{return JSON.parse(localStorage.getItem(k)) ?? f }catch{ return f } }, set(k,v){ localStorage.setItem(k, JSON.stringify(v)) } }
@@ -304,8 +254,8 @@
     let matches  = store.get('tendor_matches', [])
     let jobs     = store.get('tendor_jobs', [
       {id:'j1', title:'Move a sofa', category:'Moving Help', budget:80, zip:'48187', desc:'Need help moving a sofa from garage to living room.', email:'alice@example.com', phone:'', createdAt: Date.now()-100000 },
-      {id:'j2', title:'Mow small yard', category:'Lawn Care', budget:40, zip:'48188', desc:'Front + back, less than an hour.', email:'bob@example.com', phone:'', createdAt: Date.now()-500000 },
-      {id:'j3', title:'Fix printer', category:'Tech Help', budget:50, zip:'48187', desc:'HP printer won\'t connect to Wi-Fi.', email:'carol@example.com', phone:'', createdAt: Date.now()-900000 }
+      {id:'j2', title:'Mow small yard', category:'Lawn Care', budget:40, zip:'48188', desc:'Front + back, less than an hour.', email:'bob@example.com',   phone:'', createdAt: Date.now()-500000 },
+      {id:'j3', title:'Fix printer',   category:'Tech Help',  budget:50, zip:'48187', desc:"HP printer won't connect to Wi‑Fi.",    email:'carol@example.com', phone:'', createdAt: Date.now()-900000 }
     ])
     let myAccepted = store.get('tendor_my_jobs', [])
 
@@ -314,34 +264,22 @@
     const toast = (m)=>{ const t=$('#toast'); t.textContent=m; t.style.display='block'; clearTimeout(toast._id); toast._id=setTimeout(()=>t.style.display='none',2100) }
 
     // ---------- ROUTING ----------
-    const Screens = { landing: $('#screen-landing'), auth: $('#screen-auth'), role: $('#screen-role'), customer: $('#screen-customer'), worker: $('#screen-worker'), workerSignup: $('#screen-worker-signup') }
-    function getUser(){ return store.get('tendor_user', null) }
-    function setUser(u){ store.set('tendor_user', u); updateRoleUI?.(); route() }
-    function show(name){ Object.values(Screens).forEach(s=> s.classList.remove('active')); Screens[name]?.classList.add('active') }
-    function route(){ const u=getUser(); if(!u){ show('landing'); return } if(!u.role){ show('role'); return } show(u.role==='worker'?'worker':'customer') }
-
-    function updateRoleUI(){ const u=getUser(); const b=$('#roleBadge'); if(!u){ b.classList.add('hidden'); return } b.textContent = u.role ? (u.role==='worker'?'Worker':'Customer') : '—'; b.classList.remove('hidden') }
+    const Screens = { landing: $('#screen-landing'), customer: $('#screen-customer'), worker: $('#screen-worker'), workerSignup: $('#screen-worker-signup') }
+    function show(name){ Object.values(Screens).forEach(s=> s.style.display='none'); Screens[name]?.style.display='block'; window.scrollTo({top:0,behavior:'instant'}) }
+    function routeHome(){ show('landing') }
 
     // Header & CTA buttons
     $('#launch-app').onclick = ()=> show('customer')
     $('#cta-open-app').onclick = ()=> show('customer')
     $('#open-app-2').onclick = ()=> show('customer')
 
-    // Become a Freelancer buttons -> worker signup form
+    // Become a Freelancer → single sign-up page
     $('#open-join').onclick = ()=> show('workerSignup')
     $('#cta-join').onclick = ()=> show('workerSignup')
     $('#open-join-2').onclick = ()=> show('workerSignup')
+    $('#wBack').onclick = ()=> routeHome()
 
-    // Auth actions (simple demo)
-    $('#btnCreate').onclick = ()=> { const u = { email: $('#cEmail').value.trim() }; setUser(u) }
-    $('#btnSign').onclick   = ()=> { const u = getUser()||{}; u.email = $('#cEmail').value.trim(); setUser(u) }
-
-    // Role selection
-    $('#chooseCustomer').onclick = ()=> { const u=getUser()||{}; u.role='customer'; setUser(u) }
-    $('#chooseWorker').onclick   = ()=> { const u=getUser()||{}; u.role='worker'; setUser(u) }
-
-    // Worker sign-up flow
-    $('#wBack').onclick = ()=> show('landing')
+    // Worker sign-up
     $('#wSubmit').onclick = ()=>{
       const worker = {
         name: $('#wName').value.trim() || 'New Worker',
@@ -354,8 +292,6 @@
         photo: $('#wPhoto').value.trim()||'/images/lawn.jpg',
         category: 'Lawn Care'
       }
-      const u = { role:'worker', email: worker.email, name: worker.name, pass: worker.pass, worker }
-      setUser(u)
       profiles.unshift({ id:'p'+Math.random().toString(36).slice(2,7), name:worker.name, category:worker.category, rate:worker.rate, rating:5.0, distance:1, skills:worker.skills, bio:worker.bio, photo:worker.photo, verified:true })
       store.set('tendor_profiles', profiles)
       toast('Worker account created!')
@@ -375,8 +311,8 @@
     function buildCard(p){
       const card=el('div','tcard');
       const header=el('div','card-header');
-      if (p.photo) { const img=new Image(); img.src=p.photo; img.alt=`${p.name} photo`; img.className='photo'; header.append(img) }
-      else { const avatar=el('div','avatar'); header.append(avatar) }
+      if (p.photo) { const img=new Image(); img.src=p.photo; img.alt=`${p.name} photo`; img.className='photo'; img.onerror=()=>{header.append(el('div','avatar'))}; header.append(img) }
+      else { header.append(el('div','avatar')) }
       if(p.verified) header.append(el('div','badge ok','Verified'));
       if(p.new) header.append(el('div','badge new','New'));
       header.append(el('div','price',`$${p.rate}/hr`));
@@ -409,10 +345,7 @@
 
     // Init customer & worker views
     function init(){
-      document.getElementById('year').textContent = new Date().getFullYear()
-      document.addEventListener('click', (e)=>{ if(e.target.id==='btn-no') swipe('left'); if(e.target.id==='btn-yes') swipe('right') })
-      $('#search')?.addEventListener('input', ()=> rebuildDeck())
-      renderCategoryChips(); rebuildDeck(); renderMatches(); renderJobBoard(); renderMyJobs(); route(); updateRoleUI()
+      renderCategoryChips(); rebuildDeck(); renderMatches(); renderJobBoard(); renderMyJobs();
     }
 
     // Landing demo: cycle through three lawn-care pros on ✖/✔
@@ -430,9 +363,6 @@
       document.getElementById('demo-yes').onclick = ()=>{ flash('Matched!'); next() }
       render()
     })()
-
-    // PWA service worker (optional)
-    if ('serviceWorker' in navigator) { window.addEventListener('load', ()=> navigator.serviceWorker.register('/sw.js').catch(()=>{})) }
 
     init()
   </script>
