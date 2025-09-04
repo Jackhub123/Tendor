@@ -209,7 +209,8 @@
       <p class="help">This helps customers understand your services. You can edit later.</p>
       <div class="grid-2">
         <div><label class="label" for="wName">Full name</label><input class="field" id="wName" placeholder="e.g., Ava R."/></div>
-        <div><label class="label" for="wEmail">Email</label><input class="field" id="wEmail" placeholder="you@example.com"/></div>
+        <div><label class="label" for="wEmail">Email (login)</label><input class="field" id="wEmail" type="email" placeholder="you@example.com"/></div>
+        <div><label class="label" for="wPass">Password</label><input class="field" id="wPass" type="password" placeholder="••••••••"/></div>
         <div><label class="label" for="wPhone">Phone</label><input class="field" id="wPhone" placeholder="(555) 555‑5555"/></div>
         <div><label class="label" for="wRate">Hourly rate ($)</label><input class="field" id="wRate" type="number" min="1" step="1" placeholder="28"/></div>
         <div><label class="label" for="wSkills">Skills (comma‑separated)</label><input class="field" id="wSkills" placeholder="mowing, edging, cleanup"/></div>
@@ -322,9 +323,9 @@
     function updateRoleUI(){ const u=getUser(); const b=$('#roleBadge'); if(!u){ b.classList.add('hidden'); return } b.textContent = u.role ? (u.role==='worker'?'Worker':'Customer') : '—'; b.classList.remove('hidden') }
 
     // Header & CTA buttons
-    $('#launch-app').onclick = ()=> show('auth')
-    $('#cta-open-app').onclick = ()=> show('auth')
-    $('#open-app-2').onclick = ()=> show('auth')
+    $('#launch-app').onclick = ()=> show('customer')
+    $('#cta-open-app').onclick = ()=> show('customer')
+    $('#open-app-2').onclick = ()=> show('customer')
 
     // Become a Freelancer buttons -> worker signup form
     $('#open-join').onclick = ()=> show('workerSignup')
@@ -345,6 +346,7 @@
       const worker = {
         name: $('#wName').value.trim() || 'New Worker',
         email: $('#wEmail').value.trim(),
+        pass: $('#wPass').value.trim(),
         phone: $('#wPhone').value.trim(),
         rate: parseInt($('#wRate').value,10)||25,
         skills: $('#wSkills').value.split(',').map(s=>s.trim()).filter(Boolean),
@@ -352,13 +354,12 @@
         photo: $('#wPhoto').value.trim()||'/images/lawn.jpg',
         category: 'Lawn Care'
       }
-      // Save as user + also add to public profiles so customers can see them
-      const u = { role:'worker', email: worker.email, name: worker.name, worker }
+      const u = { role:'worker', email: worker.email, name: worker.name, pass: worker.pass, worker }
       setUser(u)
       profiles.unshift({ id:'p'+Math.random().toString(36).slice(2,7), name:worker.name, category:worker.category, rate:worker.rate, rating:5.0, distance:1, skills:worker.skills, bio:worker.bio, photo:worker.photo, verified:true })
       store.set('tendor_profiles', profiles)
       toast('Worker account created!')
-      route()
+      show('worker')
     }
 
     // ----- CUSTOMER: deck -----
